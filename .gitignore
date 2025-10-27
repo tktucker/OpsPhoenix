@@ -1,37 +1,63 @@
-# Local .terraform directories
-.terraform/
+# -----------------------------------------------
+# 1. TERRAFORM FILES (REQUIRED)
+# -----------------------------------------------
 
-# .tfstate files
+# Terraform state files (contain state and often secrets/sensitive values)
 *.tfstate
 *.tfstate.*
+# Terraform lock file, which records provider versions
+.terraform.lock.hcl
 
-# Crash log files
+# Local directories created by Terraform/CLI
+.terraform/
+.terraformrc
+.tflint.hcl
+
+# Crash log files from Terraform runs
 crash.log
-crash.*.log
 
-# Exclude all .tfvars files, which are likely to contain sensitive data, such as
-# password, private keys, and other secrets. These should not be part of version 
-# control as they are data points which are potentially sensitive and subject 
-# to change depending on the environment.
+# Key files/variables used for temporary local testing (often contain secrets)
 *.tfvars
+!terraform.tfvars  # KEEP if you use a generic, committed tfvars file
 *.tfvars.json
 
-# Ignore override files as they are usually used to override resources locally and so
-# are not checked in
+# Backup files (often created when using 'terraform apply' without -auto-approve)
+# but should NOT be used with proper state management (e.g., S3 backend)
+*.backup
+
+# Provider dependencies and temporary files
 override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
 
-# Ignore transient lock info files created by terraform apply
-.terraform.tfstate.lock.info
+# -----------------------------------------------
+# 2. AWS CREDENTIALS & SENSITIVE DATA
+# -----------------------------------------------
 
-# Include override files you do wish to add to version control using negated pattern
-# !example_override.tf
+# AWS CLI credentials file (contains Access Keys)
+# This is typically in your home directory, but good to include if copied locally.
+.aws/credentials
 
-# Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
-# example: *tfplan*
+# AWS CLI config file
+.aws/config
 
-# Ignore CLI configuration files
-.terraformrc
-terraform.rc
+# Credentials files for tools that integrate with AWS
+aws.yml
+secrets.json
+
+# -----------------------------------------------
+# 3. GENERAL DEVELOPMENT / OS FILES
+# -----------------------------------------------
+
+# IDE (VS Code) files
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Operating System files (macOS, Windows, Linux)
+.DS_Store
+Thumbs.db
+ehthumbs.db
